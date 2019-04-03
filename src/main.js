@@ -22,7 +22,9 @@ import store from '@/store/store.js'
 import api from './apis/index.js'
 Vue.prototype.api = api
 
-
+//导入vue-json-excel
+import JsonExcel from 'vue-json-excel'
+Vue.component('downloadExcel', JsonExcel)
 
 /* eslint-disable no-new */
 new Vue({

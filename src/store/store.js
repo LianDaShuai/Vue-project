@@ -67,7 +67,9 @@ const store = new Vuex.Store({
     tuition: '',
     Fee: '',
     tuitionPlan: [],
-    feePlan: []
+    feePlan: [],
+    childScoreList:[],
+    addScore:[]
   },
   getters: {
     getTuition(state){
@@ -149,6 +151,14 @@ const store = new Vuex.Store({
     //获取当前时间
     setGetDate(state,title){
       state.getDate = title
+    },
+    //学分管理父组件传子组件
+    childScore(state,title){
+      state.childScoreList = title
+    },
+    //点击添加扣分
+    setAddScore(state,title){
+      state.addScore = title
     }
   },
   actions: {

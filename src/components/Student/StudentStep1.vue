@@ -3,20 +3,20 @@
     <div class="add-message">
         <div class="form-box">
           <div class="message-left">
-            <el-form ref="form" :model="form" label-width="90px" size="small">
-              <el-form-item label="*姓名:" >
+            <el-form ref="form" :model="form" label-width="90px" size="small" :rules="rules">
+              <el-form-item label="姓名:" prop="name">
                 <el-input v-model="form.name" placeholder="请输入姓名"></el-input>
               </el-form-item>
-              <el-form-item label="*手机号:">
+              <el-form-item label="手机号:" prop="phone">
                 <el-input v-model="form.phone" placeholder="请输入手机号"></el-input>
               </el-form-item>
-              <el-form-item label="*身份证:">
+              <el-form-item label="身份证:" prop="idcard">
                 <el-input v-model="form.idcard" placeholder="请输入18位身份证"></el-input>
               </el-form-item>
-              <el-form-item label="*户籍地址:">
+              <el-form-item label="户籍地址:" prop="address">
                 <el-input v-model="form.address" placeholder="输入户籍地址"></el-input>
               </el-form-item>
-              <el-form-item label="*学历:">
+              <el-form-item label="学历:" prop="edu_level">
                 <el-select v-model="form.edu_level" placeholder="请选择学历">
                   <el-option label="初中" value="1"></el-option>
                   <el-option label="中专" value="2"></el-option>
@@ -52,7 +52,7 @@
             </el-form>
           </div>
           <div class="message-right">
-            <el-form ref="form" :model="form" label-width="80px" size="small">
+            <el-form ref="form" :model="form" label-width="90px" size="small" :rules="rules">
               <div class="radio">
                 <label class="el-form-item__label sex">性别:</label>
                 <el-radio-group v-model="form.sex">
@@ -64,13 +64,13 @@
               <el-form-item label="父亲:">
                 <el-input v-model="form.father" placeholder="请输入父亲姓名"></el-input>
               </el-form-item>
-              <el-form-item label="*母亲:">
+              <el-form-item label="母亲:" prop="mother">
                 <el-input v-model="form.mother" placeholder="请输入母亲姓名"></el-input>
               </el-form-item>
               <el-form-item label="父亲电话:">
                 <el-input v-model="form.fatherPhone" placeholder="请输入父亲电话"></el-input>
               </el-form-item>
-              <el-form-item label="*母亲电话:">
+              <el-form-item label="母亲电话:" prop="motherPhone">
                 <el-input v-model="form.motherPhone" placeholder="请输入母亲电话"></el-input>
               </el-form-item>
               <el-form-item label="信息来源:">
@@ -121,8 +121,34 @@ export default {
     return {
       form:{},
       classList:[],
-      userList:[]
+      userList:[],
+      rules: {
+          name: [
+            { required: true, message: '请输入姓名', trigger: 'blur' }
+          ],
+          phone: [
+            { required: true, message: '请输入手机号', trigger: 'blur' },
+            { min: 11, message: '至少输入11位', trigger: 'blur' }
+          ],
+          idcard: [
+            { required: true, message: '请输入身份证号', trigger: 'blur' },
+            { min: 18, message: '至少输入18位', trigger: 'blur' }
+          ],
+          address: [
+            { required: true, message: '请输入户籍地址', trigger: 'blur' }
+          ],
+          edu_level: [
+            {  required: true, message: '请选择学历', trigger: 'blur' }
+          ],
+          mother: [
+            { required: true, message: '请输入母亲姓名', trigger: 'blur' }
+          ],
+          motherPhone: [
+            { required: true, message: '请输入母亲电话', trigger: 'blur' }
+          ]
+        }
     }
+    
   },
   created(){
     this.downClassList()
@@ -131,6 +157,10 @@ export default {
   },
   beforeUpdate(){
     this.$store.commit("setAddStep1",this.form)
+    this.$emit("sendChild","form")
+    this.$refs['form'].validate(valid => {
+     console.log("valid="+valid)
+    });
   },
   methods:{
     // 获取班级列表

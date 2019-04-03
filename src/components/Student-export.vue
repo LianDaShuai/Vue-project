@@ -60,20 +60,14 @@
         <el-table-column prop="name" label="姓名" width="70px"></el-table-column>
         <el-table-column prop="classId" label="班级"></el-table-column>
         <el-table-column prop="phone" label="手机号" width="100px"></el-table-column>
-        <el-table-column prop="ctime" label="入学日期" width="120px"></el-table-column>
+        <el-table-column prop="edu_graduate" label="入学日期" width="120px"></el-table-column>
         <el-table-column prop="term" label="学制" width="50px"></el-table-column>
-        <el-table-column prop="motherPhone" label="家长电话" width="100px"></el-table-column>
-        <el-table-column prop="enroller" label="招生老师" width="70px"></el-table-column>
-        <el-table-column prop="tuition" label="学费" width="60px"></el-table-column>
-        <el-table-column prop="tuitionPaid" label="已缴学费"></el-table-column>
-        <el-table-column prop="fee" label="杂费" width="70px"></el-table-column>
-        <el-table-column prop="feePaid" label="已缴杂费"></el-table-column>
-        <el-table-column prop="paystateName" label="缴费状态"></el-table-column>
-        <el-table-column label="操作">
-          <template slot-scope="scope">
-            <el-button type="primary" size="mini" @click="dealSee(scope.$index)">查看</el-button>
-          </template>
-        </el-table-column>
+        <el-table-column prop="motherPhone" label="到期时间" width="100px"></el-table-column>
+        <el-table-column prop="motherPhone" label="家长电话" width="70px"></el-table-column>
+        <el-table-column prop="idcard" label="身份证" ></el-table-column>
+        <el-table-column prop="tuitionPaid" label="年龄" width="60px"></el-table-column>
+        <el-table-column prop="address" label="籍贯" width="70px"></el-table-column>
+        <el-table-column prop="enroller" label="老师"></el-table-column>
       </el-table>
       <div class="page">
         <el-pagination
@@ -96,24 +90,10 @@
       </div>
     </div>
     <!-- 点击查看弹出对话框 -->
-    <div class="See">
-      <el-dialog
-        :title="'查看学生信息-'+student_item.name+'('+student_item.id+')'"
-        :visible.sync="dialogVisible"
-        width="80%"
-      >
-        <student-see></student-see>
-
-        <span slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-        </span>
-      </el-dialog>
-    </div>
   </div>
 </template>
 
 <script>
-import StudentSee from "@/components/Student/StudentSee";
 
 export default {
   name: "HelloWorld",
@@ -138,9 +118,6 @@ export default {
       student_item: {},
       token: window.localStorage.getItem("token")
     };
-  },
-  components: {
-    StudentSee
   },
   created() {
     this.downClassList();

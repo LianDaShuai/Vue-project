@@ -23,7 +23,7 @@
       </div>
       <div class="student-add-message">
         <!-- 第一步添加学生信息 -->
-        <student-add-step1 v-if="active==0"></student-add-step1>
+        <student-add-step1 v-if="active==0" @sendChild="dealChild"></student-add-step1>
         <!-- 第二步添加缴费信息 -->
         <student-add-step2 v-if="active==1"></student-add-step2>
         <!-- 添加缴费计划 -->
@@ -31,7 +31,7 @@
         <student-add-step4 v-if="active==3"></student-add-step4>
         <div class="step-btn">
           <el-button @click="prev" v-if="active==1 || active==2">上一步</el-button>
-          <el-button @click="next" type="primary" v-if="active==0||active==1">下一步</el-button>
+          <el-button @click="next()" type="primary" v-if="active==0||active==1">下一步</el-button>
           <el-button @click="submit" type="primary" v-if="active == 2">提交</el-button>
         </div>
       </div>
@@ -51,7 +51,8 @@ export default {
     return {
       //步骤条数据
       active: 0,
-      token: ""
+      token: "",
+      formName: ""
     };
   },
   components: {
@@ -65,6 +66,11 @@ export default {
     this.token = token;
   },
   methods: {
+    //接受子组件传过来的form
+    dealChild(formName) {
+      console.log(formName);
+      this.formName = formName;
+    },
     //点击下一步
     next() {
       if (this.active++ > 3) {
@@ -125,39 +131,38 @@ export default {
         this.$store.commit("setId", res.student.id);
         this.$store.commit("setName", res.student.name);
 
-        var params ={
-          uid:res.student._id,
-          tuitionList:this.$store.state.tuitionPlan,
-          feeList:this.$store.state.feePlan,
+        var params = {
+          uid: res.student._id,
+          tuitionList: this.$store.state.tuitionPlan,
+          feeList: this.$store.state.feePlan,
           term: this.$store.state.form1.term,
-        tuition_way: this.$store.state.form1.tuition_way,
-        course: this.$store.state.form1.course,
-        cuppon_way: this.$store.state.form1.cuppon_way,
-        tuitionOrigin: this.$store.state.form1.tuitionOrigin,
-        tuitionMinus: this.$store.state.form1.tuitionMinus,
-        tuition: this.$store.state.form1.tuition,
-        room_way: this.$store.state.form1.room_way,
-        room_rent: this.$store.state.form1.room_rent,
-        room_deposit: this.$store.state.form1.room_deposit,
-        room_manage: this.$store.state.form1.room_manage,
-        room_net: this.$store.state.form1.room_net,
-        pc_way: this.$store.state.form1.pc_way,
-        pc_rent: this.$store.state.form1.pc_rent,
-        pc_buy: this.$store.state.form1.pc_buy,
-        pc_deposit: this.$store.state.form1.pc_deposit,
-        cloth: this.$store.state.form1.cloth,
-        blanket: this.$store.state.form1.blanket,
-        clothflag: this.$store.state.form1.clothflag,
-        blanketflag: this.$store.state.form1.blanketflag,
-        fee: this.$store.state.form1.fee,
-        feeTotal: this.$store.state.form1.feeTotal
-        }
+          tuition_way: this.$store.state.form1.tuition_way,
+          course: this.$store.state.form1.course,
+          cuppon_way: this.$store.state.form1.cuppon_way,
+          tuitionOrigin: this.$store.state.form1.tuitionOrigin,
+          tuitionMinus: this.$store.state.form1.tuitionMinus,
+          tuition: this.$store.state.form1.tuition,
+          room_way: this.$store.state.form1.room_way,
+          room_rent: this.$store.state.form1.room_rent,
+          room_deposit: this.$store.state.form1.room_deposit,
+          room_manage: this.$store.state.form1.room_manage,
+          room_net: this.$store.state.form1.room_net,
+          pc_way: this.$store.state.form1.pc_way,
+          pc_rent: this.$store.state.form1.pc_rent,
+          pc_buy: this.$store.state.form1.pc_buy,
+          pc_deposit: this.$store.state.form1.pc_deposit,
+          cloth: this.$store.state.form1.cloth,
+          blanket: this.$store.state.form1.blanket,
+          clothflag: this.$store.state.form1.clothflag,
+          blanketflag: this.$store.state.form1.blanketflag,
+          fee: this.$store.state.form1.fee,
+          feeTotal: this.$store.state.form1.feeTotal
+        };
         //添加学生缴费计划
-        console.log("添加缴费计划获取store="+this.$store.state.tuitionPlan)
-         console.log("添加缴费计划获取store="+this.$store.state.feePlan)
-        let res1 = await this.api.studentApi.payment(params)
-        console.log(res1)
-
+        console.log("添加缴费计划获取store=" + this.$store.state.tuitionPlan);
+        console.log("添加缴费计划获取store=" + this.$store.state.feePlan);
+        let res1 = await this.api.studentApi.payment(params);
+        console.log(res1);
       }
       if (res.code == 0) {
         this.$message({

@@ -7,7 +7,8 @@ import Main from '@/components/Main'
 import Banner from '@/components/Banner'
 import Student from '@/components/Student/Student'
 import StudentAdd from '@/components/Student/Student-add'
-import StudentScore from '@/components/Student-score'
+import StudentScore from '@/components/StudentScore/Student-score'
+import StudentExport from '@/components/Student-export'
 
 Vue.use(Router)
 
@@ -47,6 +48,16 @@ var r = new Router({
         {
           path: '/main/student-score',
           name: 'student-score',
+          component: StudentScore
+        },
+        {
+          path: '/main/student-export',
+          name: 'student-export',
+          component: StudentExport
+        },
+        {
+          path: '/main/student-downgrade',
+          name: 'student-downgrade',
           component: StudentScore
         }
       ]
