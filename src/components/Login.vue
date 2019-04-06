@@ -104,7 +104,7 @@ export default {
     },
     dealSetCode() {
       var getCode = () => {
-        return parseInt(Math.random() * 9);
+        return parseInt(Math.random() * 10);
       };
       this.showCode =
         getCode() + "" + getCode() + "" + getCode() + "" + getCode();

@@ -26,6 +26,10 @@ Vue.prototype.api = api
 import JsonExcel from 'vue-json-excel'
 Vue.component('downloadExcel', JsonExcel)
 
+//引入echarts
+import echarts from "echarts"
+// Vue.prototype.$echarts = echarts 
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

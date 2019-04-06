@@ -30,6 +30,7 @@
             <el-menu-item index="2-3">导出学员</el-menu-item>
             <el-menu-item index="2-4">学分管理</el-menu-item>
             <el-menu-item index="2-5">末班管理</el-menu-item>
+            <el-menu-item index="2-6">就业信息</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 
@@ -61,14 +62,16 @@
 export default {
   name: "HelloWorld",
   data() {
-    return {};
+    return {
+     
+    };
   },
   computed: {
 		isCollapse(){
 			return this.$store.state.isCollapse
 		}
   },
-  methods:{
+  methods:{ 
 		handleSelect(key,keyPath){
 			console.log(key,keyPath)
 			var dict = {
@@ -76,7 +79,9 @@ export default {
 				"2-2":"/main/student-add",
 				"2-3":"/main/student-export",
 				"2-4":"/main/student-score",
-				"2-5":"/main/student-downgrade",
+        "2-5":"/main/student-downgrade",
+        "2-6":"/main/student-job",
+        "3-5":"/main/finance-expenditure"
 			}
 			var path = dict[key]
 			if(path != undefined){

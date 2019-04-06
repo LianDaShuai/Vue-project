@@ -157,15 +157,16 @@ export default {
   },
   beforeUpdate(){
     this.$store.commit("setAddStep1",this.form)
-    this.$emit("sendChild","form")
+    // this.$emit("sendChild","form")
     this.$refs['form'].validate(valid => {
-     console.log("valid="+valid)
+    //  console.log("valid="+valid)
+    console.log("表单校验="+true)
     });
   },
   methods:{
     // 获取班级列表
      async downClassList() {
-      var url = classListUrl;
+      // var url = classListUrl;
       //调用获取班级列表方法
       let res = await this.api.classApi.getClassList()
       console.log(res)

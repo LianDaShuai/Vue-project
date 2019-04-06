@@ -2,7 +2,7 @@
   <div class="deduction">
     <div class="date">
       <span>违纪日期：</span>
-      <el-date-picker v-model="value1" type="date" placeholder="选择日期" size="mini"></el-date-picker>
+      <el-date-picker v-model="value1" type="date" value-format="yyyyMMdd" placeholder="选择日期" size="mini"></el-date-picker>
     </div>
     <div class="option">
       <span>违纪原因：</span>
@@ -52,23 +52,26 @@ export default {
   methods:{
     //点击添加扣分
     async dealAdd(){
+      console.log(this.$store.state.addScore.classId)
       var dict = {
         minus:this.value2,
         way:this.value,
-        ctime:this.value1,
+        ctime:this.$store.state.addScore.ctime,
         classId:this.$store.state.addScore.classId,
-        day:this.$store.state.addScore.day,
+        day:this.value1,
         enroller:this.$store.state.addScore.enroller,
         id:this.$store.state.addScore.id,
         name:this.$store.state.addScore.name,
         term:this.$store.state.addScore.term,
         token:window.localStorage.getItem("token"),
-        _id:this.$store.state.addScore._id
+        _id:this.$store.state.addScore._id,
+        score:this.$store.state.addScore.score
       }
       let res = await this.api.scoreApi.addDeduction(dict)
       console.log(res)
       if(res.code == 1){
         alert("添加成功")
+        // this.$emit("sendChange",false)
       }
     }
   }

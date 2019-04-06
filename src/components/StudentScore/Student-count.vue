@@ -57,7 +57,7 @@
     </div>
     <div class="dialog-deduction">
       <el-dialog :title="'查看违纪扣分记录-'+student_score.name+'('+student_score._id+'-'+student_score.id+'-'+student_score.classId+'班)'" :visible.sync="dialogVisible1" width="50%" >
-        <deduction></deduction>
+        <deduction @sendChange = "dealChange"></deduction>
       </el-dialog>
     </div>
   </div>
@@ -80,7 +80,7 @@ export default {
       count: 10,
       showData: [], //要显示的数据,
       dialogVisible:false,
-       dialogVisible1:false,
+      dialogVisible1:false,
       student_score:{},
     };
   },
@@ -94,6 +94,10 @@ export default {
     this.downScoreList();
   },
   methods: {
+    //监控子页面
+    dealChange(a){
+      console.log("子页面传过来的="+a)
+    },
     //显示页面上学生学分数据
     async downScoreList() {
       let res = await this.api.scoreApi.getScore();
@@ -160,7 +164,7 @@ export default {
     },
     //点击扣分
     dealDialog1(index){
-      this.dealDialog1 = true
+      this.dialogVisible1 = true
       var student_score = this.showData[index]
       this.student_score = student_score
       this.$store.commit("setAddScore",student_score)

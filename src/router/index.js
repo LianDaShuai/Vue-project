@@ -9,6 +9,8 @@ import Student from '@/components/Student/Student'
 import StudentAdd from '@/components/Student/Student-add'
 import StudentScore from '@/components/StudentScore/Student-score'
 import StudentExport from '@/components/Student-export'
+import StudentJob from '@/components/Student-job'
+import FinanceExpenditure from '@/components/Finance/Finance-expenditure'
 
 Vue.use(Router)
 
@@ -59,6 +61,16 @@ var r = new Router({
           path: '/main/student-downgrade',
           name: 'student-downgrade',
           component: StudentScore
+        },
+        {
+          path: '/main/student-job',
+          name: 'student-job',
+          component: StudentJob
+        },
+        {
+          path: '/main/finance-expenditure',
+          name: 'finance-expenditure',
+          component: FinanceExpenditure
         }
       ]
     }

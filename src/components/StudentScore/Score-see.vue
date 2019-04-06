@@ -5,7 +5,7 @@
         <el-table-column prop="name" label="姓名" width="120"></el-table-column>
         <el-table-column prop="classId" label="班级" width="70"></el-table-column>
         <el-table-column prop="ctime" label="录入时间"></el-table-column>
-        <el-table-column prop="term" label="违纪日期" width="70"></el-table-column>
+        <el-table-column prop="ctime" label="违纪日期" width="70"></el-table-column>
         <el-table-column prop="way" label="原因" width="70"></el-table-column>
         <el-table-column prop="ctime" label="扣分" width="130"></el-table-column>
         <el-table-column prop="score" label="剩余"></el-table-column>
@@ -19,11 +19,16 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      SeeScore:[]
+      // SeeScore:[]
+    }
+  },
+  computed:{
+    SeeScore(){
+      return this.$store.state.childScoreList
     }
   },
   created(){
-    this.SeeScore = this.$store.state.childScoreList
+    // this.SeeScore = 
   }
 }
 </script>
